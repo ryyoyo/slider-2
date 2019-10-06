@@ -1,37 +1,52 @@
 {
-    $('#images > img:nth-child(1)').addClass('current')
-    $('#images > img:nth-child(2)').addClass('enter')
-    $('#images > img:nth-child(3)').addClass('enter')
-    setTimeout(() => {
-        $('#images > img:nth-child(1)').removeClass('current').addClass('leave')
-            .one('transitionend', (e) => {
-                $(e.currentTarget).removeClass('leave').addClass('enter')
-            })
-        $('#images > img:nth-child(2)').removeClass('enter').addClass('current')
+    let n;
+    let imgL = $('#images > img').length;
+    init();
 
-    }, 2000)
-    setTimeout(() => {
-        $('#images > img:nth-child(2)').removeClass('current').addClass('leave')
-            .one('transitionend', (e) => {
-                $(e.currentTarget).removeClass('leave').addClass('enter')
-            })
-        $('#images > img:nth-child(3)').removeClass('enter').addClass('current')
 
-    }, 4000)
-    setTimeout(() => {
-        $('#images > img:nth-child(3)').removeClass('current').addClass('leave')
+    setInterval(() => {
+        makeLeave(getImage(n))
             .one('transitionend', (e) => {
-                $(e.currentTarget).removeClass('leave').addClass('enter')
+                makeEnter($(e.currentTarget))
             })
-        $('#images > img:nth-child(1)').removeClass('enter').addClass('current')
+        makeCurrent(getImage(n + 1))
+        n += 1;
+    }, 2000);
 
-    }, 6000)
-    setTimeout(() => {
-        $('#images > img:nth-child(1)').removeClass('current').addClass('leave')
-            .one('transitionend', (e) => {
-                $(e.currentTarget).removeClass('leave').addClass('enter')
-            })
-        $('#images > img:nth-child(2)').removeClass('enter').addClass('current')
+    // 封装函数
 
-    }, 8000)
+    function getImage(arg) { //获取图片
+        return $(`#images > img:nth-child(${f(arg)})`)
+    }
+
+    function makeCurrent($event) {
+        $event.removeClass('enter leave').addClass('current')
+        return $event
+    }
+
+    function makeLeave($event) {
+        $event.removeClass('current enter').addClass('leave')
+        return $event
+    }
+
+    function makeEnter($event) {
+        $event.removeClass('leave current').addClass('enter')
+        return $event
+    }
+
+    function f(x) {
+        if (x > imgL) {
+            x = x % imgL;
+            if (x === 0) {
+                x = imgL
+            }
+        }
+        return x; // x 一直为 1，2，3，4
+    }
+
+    function init() {
+        n = 1;
+        $(`#images > img:nth-child(${n})`).addClass('current')
+            .siblings().addClass('enter')
+    }
 }
