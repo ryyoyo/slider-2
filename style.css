@@ -1,12 +1,11 @@
-img {
-    width: 300px;
-    height: 210px;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+img {
+    width: 300px;
+    height: 210px;
 }
 
 .window {
@@ -18,13 +17,9 @@ img {
 }
 
 .images {
-    /*display: flex;*/
-    position: relative;
 }
 
 .images > img {
-    position: absolute;
-    top: 0;
     width: 100%;
     transition: all 0.5s;
 }
