@@ -18,13 +18,13 @@
     });
 
 // 6. 每过2秒，自动轮播切换图片
-    var timer = setInterval(function () { // 自动轮播
+    let timer = setInterval(function () { // 自动轮播
         goToSlide(current + 1)
-    }, 2000)
+    }, 2000);
 
 
 // 7.鼠标进入暂停轮播，移出继续轮播
-    $(images).on('mouseenter', function () {
+    $(container).on('mouseenter', function () {
         window.clearInterval(timer)
     }).on('mouseleave', function () {
         timer = setInterval(function () { // 自动轮播
@@ -44,8 +44,8 @@
     }
 
     function goToSlide(index) { // 精髓，核心
-        console.log('current, index')
-        console.log(current, index)
+        // console.log('current, index')
+        // console.log(current, index)
         if (index > length - 1) {
             index = 0
         } else if (index < 0) {
